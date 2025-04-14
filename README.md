@@ -1,3 +1,5 @@
+### PROFESSOR, NÃO CONSEGUI IMPLEMENTAR O BANCO DE DADOS :(
+
 Projeto Tarefas
 
 | Serviço   | Repositório GitHub                                 | Imagem Docker Hub                          |
