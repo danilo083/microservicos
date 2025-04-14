@@ -1,0 +1,28 @@
+services:
+  mongo:
+    image: mongo
+    container_name: tarefas_mongo
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin
+
+  backend:
+    image: danilo083/tarefas_back
+    container_name: tarefas_back
+    ports:
+      - "3000:3000"
+    environment:
+      PORT: 3000
+      DB_URL: mongodb://admin:admin@mongo:27017/tarefas?authSource=admin
+    depends_on:
+      - mongo
+
+  frontend:
+    image: danilo083/tarefas_front
+    container_name: tarefas_front
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
