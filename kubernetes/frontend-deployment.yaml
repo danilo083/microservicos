@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tarefas-front
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tarefas-front
+  template:
+    metadata:
+      labels:
+        app: tarefas-front
+    spec:
+      containers:
+        - name: tarefas-front
+          image: danilo083/tarefas_front
+          ports:
+            - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tarefas-front-service
+spec:
+  selector:
+    app: tarefas-front
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 80
+  type: NodePort

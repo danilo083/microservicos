@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tarefas-back
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tarefas-back
+  template:
+    metadata:
+      labels:
+        app: tarefas-back
+    spec:
+      containers:
+        - name: tarefas-back
+          image: danilo083/tarefas_back
+          ports:
+            - containerPort: 3000
+          env:
+            - name: PORT
+              value: "3000"
+            - name: DB_URL
+              value: mongodb://admin:admin@tarefas-mongo:27017/tarefas?authSource=admin
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tarefas-back-service
+spec:
+  selector:
+    app: tarefas-back
+  ports:
+    - protocol: TCP
+      port: 3000
+      targetPort: 3000
+  type: ClusterIP
